@@ -55,6 +55,7 @@ ModelImporter:
     400046: UVOBJECT
     4300000: UVOBJECT
     4300002: Sphere
+    6400000: UVOBJECT
     7400000: Default Take
     7400002: Action
     9500000: //RootNode
@@ -86,7 +87,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

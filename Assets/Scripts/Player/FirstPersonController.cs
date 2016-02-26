@@ -25,7 +25,7 @@ public class FirstPersonController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		Cursor.visible = false;
 	}
 	
 	// Update is called once per frame
