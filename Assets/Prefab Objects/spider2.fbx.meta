@@ -86,6 +86,8 @@ ModelImporter:
     4300000: UVOBJECT
     4300002: Sphere
     7400000: Armature|Action
+    7400002: SpiderWalk
+    7400004: SpiderAttack
     9500000: //RootNode
     13700000: Sphere
     13700002: UVOBJECT
@@ -109,11 +111,329 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Action
+      takeName: Armature|Action
+      firstFrame: 0
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/body
+        weight: 1
+      - path: Armature/body/body_end
+        weight: 1
+      - path: Armature/fangleft
+        weight: 1
+      - path: Armature/fangleft/fangleft_end
+        weight: 1
+      - path: Armature/fangright
+        weight: 1
+      - path: Armature/fangright/fangright_end
+        weight: 1
+      - path: Armature/leftleg1
+        weight: 1
+      - path: Armature/leftleg1/leftleg11
+        weight: 1
+      - path: Armature/leftleg1/leftleg11/leftleg11_end
+        weight: 1
+      - path: Armature/leftleg2
+        weight: 1
+      - path: Armature/leftleg2/leftleg22
+        weight: 1
+      - path: Armature/leftleg2/leftleg22/leftleg22_end
+        weight: 1
+      - path: Armature/leftleg3
+        weight: 1
+      - path: Armature/leftleg3/leftleg33
+        weight: 1
+      - path: Armature/leftleg3/leftleg33/leftleg33_end
+        weight: 1
+      - path: Armature/leftleg4
+        weight: 1
+      - path: Armature/leftleg4/leftleg44
+        weight: 1
+      - path: Armature/leftleg4/leftleg44/leftleg44_end
+        weight: 1
+      - path: Armature/nothing
+        weight: 1
+      - path: Armature/nothing/nothing_end
+        weight: 1
+      - path: Armature/rightleg1
+        weight: 1
+      - path: Armature/rightleg1/rightleg11
+        weight: 1
+      - path: Armature/rightleg1/rightleg11/rightleg11_end
+        weight: 1
+      - path: Armature/rightleg2
+        weight: 1
+      - path: Armature/rightleg2/rightleg22
+        weight: 1
+      - path: Armature/rightleg2/rightleg22/rightleg22_end
+        weight: 1
+      - path: Armature/rightleg3
+        weight: 1
+      - path: Armature/rightleg3/rightleg33
+        weight: 1
+      - path: Armature/rightleg3/rightleg33/rightleg33_end
+        weight: 1
+      - path: Armature/rightleg4
+        weight: 1
+      - path: Armature/rightleg4/rightleg44
+        weight: 1
+      - path: Armature/rightleg4/rightleg44/rightleg44_end
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: UVCAMERA
+        weight: 1
+      - path: UVOBJECT
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: SpiderWalk
+      takeName: Armature|Action
+      firstFrame: 0
+      lastFrame: 76
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/body
+        weight: 1
+      - path: Armature/body/body_end
+        weight: 1
+      - path: Armature/fangleft
+        weight: 1
+      - path: Armature/fangleft/fangleft_end
+        weight: 1
+      - path: Armature/fangright
+        weight: 1
+      - path: Armature/fangright/fangright_end
+        weight: 1
+      - path: Armature/leftleg1
+        weight: 1
+      - path: Armature/leftleg1/leftleg11
+        weight: 1
+      - path: Armature/leftleg1/leftleg11/leftleg11_end
+        weight: 1
+      - path: Armature/leftleg2
+        weight: 1
+      - path: Armature/leftleg2/leftleg22
+        weight: 1
+      - path: Armature/leftleg2/leftleg22/leftleg22_end
+        weight: 1
+      - path: Armature/leftleg3
+        weight: 1
+      - path: Armature/leftleg3/leftleg33
+        weight: 1
+      - path: Armature/leftleg3/leftleg33/leftleg33_end
+        weight: 1
+      - path: Armature/leftleg4
+        weight: 1
+      - path: Armature/leftleg4/leftleg44
+        weight: 1
+      - path: Armature/leftleg4/leftleg44/leftleg44_end
+        weight: 1
+      - path: Armature/nothing
+        weight: 1
+      - path: Armature/nothing/nothing_end
+        weight: 1
+      - path: Armature/rightleg1
+        weight: 1
+      - path: Armature/rightleg1/rightleg11
+        weight: 1
+      - path: Armature/rightleg1/rightleg11/rightleg11_end
+        weight: 1
+      - path: Armature/rightleg2
+        weight: 1
+      - path: Armature/rightleg2/rightleg22
+        weight: 1
+      - path: Armature/rightleg2/rightleg22/rightleg22_end
+        weight: 1
+      - path: Armature/rightleg3
+        weight: 1
+      - path: Armature/rightleg3/rightleg33
+        weight: 1
+      - path: Armature/rightleg3/rightleg33/rightleg33_end
+        weight: 1
+      - path: Armature/rightleg4
+        weight: 1
+      - path: Armature/rightleg4/rightleg44
+        weight: 1
+      - path: Armature/rightleg4/rightleg44/rightleg44_end
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: UVCAMERA
+        weight: 1
+      - path: UVOBJECT
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: SpiderAttack
+      takeName: Armature|Action
+      firstFrame: 96
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/body
+        weight: 1
+      - path: Armature/body/body_end
+        weight: 1
+      - path: Armature/fangleft
+        weight: 1
+      - path: Armature/fangleft/fangleft_end
+        weight: 1
+      - path: Armature/fangright
+        weight: 1
+      - path: Armature/fangright/fangright_end
+        weight: 1
+      - path: Armature/leftleg1
+        weight: 1
+      - path: Armature/leftleg1/leftleg11
+        weight: 1
+      - path: Armature/leftleg1/leftleg11/leftleg11_end
+        weight: 1
+      - path: Armature/leftleg2
+        weight: 1
+      - path: Armature/leftleg2/leftleg22
+        weight: 1
+      - path: Armature/leftleg2/leftleg22/leftleg22_end
+        weight: 1
+      - path: Armature/leftleg3
+        weight: 1
+      - path: Armature/leftleg3/leftleg33
+        weight: 1
+      - path: Armature/leftleg3/leftleg33/leftleg33_end
+        weight: 1
+      - path: Armature/leftleg4
+        weight: 1
+      - path: Armature/leftleg4/leftleg44
+        weight: 1
+      - path: Armature/leftleg4/leftleg44/leftleg44_end
+        weight: 1
+      - path: Armature/nothing
+        weight: 1
+      - path: Armature/nothing/nothing_end
+        weight: 1
+      - path: Armature/rightleg1
+        weight: 1
+      - path: Armature/rightleg1/rightleg11
+        weight: 1
+      - path: Armature/rightleg1/rightleg11/rightleg11_end
+        weight: 1
+      - path: Armature/rightleg2
+        weight: 1
+      - path: Armature/rightleg2/rightleg22
+        weight: 1
+      - path: Armature/rightleg2/rightleg22/rightleg22_end
+        weight: 1
+      - path: Armature/rightleg3
+        weight: 1
+      - path: Armature/rightleg3/rightleg33
+        weight: 1
+      - path: Armature/rightleg3/rightleg33/rightleg33_end
+        weight: 1
+      - path: Armature/rightleg4
+        weight: 1
+      - path: Armature/rightleg4/rightleg44
+        weight: 1
+      - path: Armature/rightleg4/rightleg44/rightleg44_end
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: UVCAMERA
+        weight: 1
+      - path: UVOBJECT
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.25
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
