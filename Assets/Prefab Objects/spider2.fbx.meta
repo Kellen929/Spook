@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 84cb3833663be4bc8841c680ed9b5d21
+timeCreated: 1457049922
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: body
+    100004: body_end
+    100006: Camera
+    100008: fangleft
+    100010: fangleft_end
+    100012: fangright
+    100014: fangright_end
+    100016: Lamp
+    100018: leftleg1
+    100020: leftleg11
+    100022: leftleg11_end
+    100024: leftleg2
+    100026: leftleg22
+    100028: leftleg22_end
+    100030: leftleg3
+    100032: leftleg33
+    100034: leftleg33_end
+    100036: leftleg4
+    100038: leftleg44
+    100040: leftleg44_end
+    100042: nothing
+    100044: nothing_end
+    100046: rightleg1
+    100048: rightleg11
+    100050: rightleg11_end
+    100052: rightleg2
+    100054: rightleg22
+    100056: rightleg22_end
+    100058: rightleg3
+    100060: rightleg33
+    100062: rightleg33_end
+    100064: rightleg4
+    100066: rightleg44
+    100068: rightleg44_end
+    100070: Sphere
+    100072: //RootNode
+    100074: UVCAMERA
+    100076: UVOBJECT
+    400000: Armature
+    400002: body
+    400004: body_end
+    400006: Camera
+    400008: fangleft
+    400010: fangleft_end
+    400012: fangright
+    400014: fangright_end
+    400016: Lamp
+    400018: leftleg1
+    400020: leftleg11
+    400022: leftleg11_end
+    400024: leftleg2
+    400026: leftleg22
+    400028: leftleg22_end
+    400030: leftleg3
+    400032: leftleg33
+    400034: leftleg33_end
+    400036: leftleg4
+    400038: leftleg44
+    400040: leftleg44_end
+    400042: nothing
+    400044: nothing_end
+    400046: rightleg1
+    400048: rightleg11
+    400050: rightleg11_end
+    400052: rightleg2
+    400054: rightleg22
+    400056: rightleg22_end
+    400058: rightleg3
+    400060: rightleg33
+    400062: rightleg33_end
+    400064: rightleg4
+    400066: rightleg44
+    400068: rightleg44_end
+    400070: Sphere
+    400072: //RootNode
+    400074: UVCAMERA
+    400076: UVOBJECT
+    4300000: UVOBJECT
+    4300002: Sphere
+    7400000: Armature|Action
+    9500000: //RootNode
+    13700000: Sphere
+    13700002: UVOBJECT
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
