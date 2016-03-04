@@ -48,6 +48,7 @@ public class FirstPersonController : MonoBehaviour {
 		mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 		spotLight.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
+		
 		// Jumping
 		if (playerController.isGrounded) {
 			if(isFalling) {
