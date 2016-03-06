@@ -6,6 +6,7 @@ public class FirstPersonController : MonoBehaviour {
 	public CharacterController playerController;
 	public Camera mainCamera;
 	public Light spotLight;
+	public Transform gunTrans;
 	
 	public AudioSource sfx;
 	public AudioClip step1SFX;
@@ -22,6 +23,10 @@ public class FirstPersonController : MonoBehaviour {
 	private bool crouchState = false;
 	private bool isFalling = false;
 	private int stepIdx = 0;
+	private Vector3 gunbobPos;
+	private Vector3 gunbobAxis;
+	private int gunbobCount = 0;
+	private bool isBobbingDown = true;
 
 	// Private Constants
 	private const float MOVE_FASTER_MULTIPLIER = 6.0f;
@@ -32,10 +37,15 @@ public class FirstPersonController : MonoBehaviour {
 	private const float CROUCH_SPEED = .1f;
 	private const float MAX_CAMERA = 1.75f;
 	private const float MIN_CAMERA = 0.85f;
+	private const float GUNBOB_SPEED = .01f;
+	private const float GUNBOB_FREQ = 8.0f;
+	private const float GUNBOB_MAG = .1f;
 
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
+		gunbobPos = gunTrans.localPosition;
+		gunbobAxis = gunTrans.right;
 	}
 	
 	// Update is called once per frame
@@ -74,8 +84,9 @@ public class FirstPersonController : MonoBehaviour {
 		velocity = transform.rotation * velocity;
 		playerController.SimpleMove(velocity);
 
-		// Movement SFX
+		// Movement SFX & Gunbob
 		if(velocity != Vector3.zero) {
+			// Movement SFX
 			if(!sfx.isPlaying) {
 				switch(stepIdx) {
 					case 0:
@@ -93,6 +104,21 @@ public class FirstPersonController : MonoBehaviour {
 				}
 				stepIdx = stepIdx >= 3 ? 0 : stepIdx + 1; 
 			}
+	
+			// Gunbob
+			if(isBobbingDown && gunbobCount <= 8) {
+				gunbobPos += gunTrans.up * Time.deltaTime * GUNBOB_SPEED;
+
+				if(gunbobCount++ >= 8)
+					isBobbingDown = false;
+			}
+			else {
+				gunbobPos += (-1 * gunTrans.up) * Time.deltaTime * GUNBOB_SPEED;
+
+				if(gunbobCount-- <= 0)
+					isBobbingDown = true;
+			}
+			gunTrans.localPosition = gunbobPos + gunbobAxis * Mathf.Sin(Time.time * GUNBOB_FREQ) * GUNBOB_MAG;
 		}
 
 		// Crouching
