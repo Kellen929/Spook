@@ -4,7 +4,7 @@ using System.Collections;
 public class BulletParticle : MonoBehaviour {
 	private float lifespan = 3.0f;
 	public GameObject particleEffect;
-	private float damage = 1;
+	private int damage = 1;
 
 	// Use this for initialization
 	void Start () {
