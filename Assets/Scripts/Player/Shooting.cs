@@ -11,7 +11,8 @@ public class Shooting : MonoBehaviour {
 	public Transform bodyTrans;
 	public ParticleSystem muzzleFlash;
 	public GameObject gun;
-	
+	public bool isPaused;
+
 	// Audio
 	public AudioClip gunshot;
 	public AudioClip shellFall;
@@ -47,67 +48,69 @@ public class Shooting : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetButtonDown("Fire1")) {
-			animating = true;
-			slideExpand = true;
-			bodyExpand = true;
-			PlayMuzzleParticle();
-			sfx.PlayOneShot(gunshot);
-			StartCoroutine(PlayShellSFX(SHELL_DELAY));
-			// REMOVED BULLET
-			//GameObject bullet = (GameObject)Instantiate(bulletPrefab, cam.transform.position + cam.transform.forward, cam.transform.rotation * bulletPrefab.transform.rotation);
-			//bullet.GetComponent<Rigidbody>().AddForce(cam.transform.forward * bulletImpulse, ForceMode.Impulse);
-		}
-
-		// Gun Animation
-		if(animating) {
-			if(slideDone && bodyDone) {
-				animating = false;
-				slideDone = false;
-				bodyDone = false;
+		if(!isPaused) {
+			if(Input.GetButtonDown("Fire1")) {
+				animating = true;
+				slideExpand = true;
+				bodyExpand = true;
+				PlayMuzzleParticle();
+				sfx.PlayOneShot(gunshot);
+				StartCoroutine(PlayShellSFX(SHELL_DELAY));
+				// REMOVED BULLET
+				//GameObject bullet = (GameObject)Instantiate(bulletPrefab, cam.transform.position + cam.transform.forward, cam.transform.rotation * bulletPrefab.transform.rotation);
+				//bullet.GetComponent<Rigidbody>().AddForce(cam.transform.forward * bulletImpulse, ForceMode.Impulse);
 			}
 
-			// Slide
-			if(slideExpand && slideTrans.localPosition.y > EXTENDED_SLIDE_Y) {
-				Vector3 tmp = slideTrans.localPosition;
-				tmp.y -= SLIDE_SPEED;
-				slideTrans.localPosition = tmp;
-				
-				// If just got fully extended, go back
-				if(slideTrans.localPosition.y <= EXTENDED_SLIDE_Y) {
-					slideReturn = true;
-					slideExpand = false;
+			// Gun Animation
+			if(animating) {
+				if(slideDone && bodyDone) {
+					animating = false;
+					slideDone = false;
+					bodyDone = false;
 				}
-			}
-			else if(slideReturn && slideTrans.localPosition.y < STATIC_SLIDE_Y) {
-				Vector3 tmp = slideTrans.localPosition;
-				tmp.y += SLIDE_SPEED;
-				slideTrans.localPosition = tmp;
 
-				// If finished returning slide to original static state
-				if(slideTrans.localPosition.y >= STATIC_SLIDE_Y) {
-					slideReturn = false;
-					slideDone = true;
+				// Slide
+				if(slideExpand && slideTrans.localPosition.y > EXTENDED_SLIDE_Y) {
+					Vector3 tmp = slideTrans.localPosition;
+					tmp.y -= SLIDE_SPEED;
+					slideTrans.localPosition = tmp;
+					
+					// If just got fully extended, go back
+					if(slideTrans.localPosition.y <= EXTENDED_SLIDE_Y) {
+						slideReturn = true;
+						slideExpand = false;
+					}
 				}
-			}
+				else if(slideReturn && slideTrans.localPosition.y < STATIC_SLIDE_Y) {
+					Vector3 tmp = slideTrans.localPosition;
+					tmp.y += SLIDE_SPEED;
+					slideTrans.localPosition = tmp;
 
-			// Body
-			if(bodyExpand) {
-				bodyTrans.localPosition = Vector3.MoveTowards(bodyTrans.localPosition, EXTENDED_BODY_POS, BODY_SPEED);
-
-				// If just got fully extended, go back
-				if(bodyTrans.localPosition.Equals(EXTENDED_BODY_POS)) {
-					bodyReturn = true;
-					bodyExpand = false;
+					// If finished returning slide to original static state
+					if(slideTrans.localPosition.y >= STATIC_SLIDE_Y) {
+						slideReturn = false;
+						slideDone = true;
+					}
 				}
-			}
-			else if(bodyReturn) {
-				bodyTrans.localPosition = Vector3.MoveTowards(bodyTrans.localPosition, STATIC_BODY_POS, BODY_SPEED);
 
-				// If finished returning slide to original static state
-				if(bodyTrans.localPosition.Equals(STATIC_BODY_POS)) {
-					bodyReturn = false;
-					bodyDone = true;
+				// Body
+				if(bodyExpand) {
+					bodyTrans.localPosition = Vector3.MoveTowards(bodyTrans.localPosition, EXTENDED_BODY_POS, BODY_SPEED);
+
+					// If just got fully extended, go back
+					if(bodyTrans.localPosition.Equals(EXTENDED_BODY_POS)) {
+						bodyReturn = true;
+						bodyExpand = false;
+					}
+				}
+				else if(bodyReturn) {
+					bodyTrans.localPosition = Vector3.MoveTowards(bodyTrans.localPosition, STATIC_BODY_POS, BODY_SPEED);
+
+					// If finished returning slide to original static state
+					if(bodyTrans.localPosition.Equals(STATIC_BODY_POS)) {
+						bodyReturn = false;
+						bodyDone = true;
+					}
 				}
 			}
 		}
@@ -132,5 +135,9 @@ public class Shooting : MonoBehaviour {
 	IEnumerator DestroyBulletFlash(float waitTime, GameObject bulletFlash) {
 		yield return new WaitForSeconds(waitTime);
 		Destroy(bulletFlash);
+	}
+
+	public void togglePaused() {
+		isPaused = !isPaused;
 	}
 }
