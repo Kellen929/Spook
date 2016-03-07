@@ -5,22 +5,46 @@ public class EnemyAI : MonoBehaviour
 {
 	public float patrolSpeed = 2f;                                             
 	public float patrolWaitTime = 1f;                       
-	public Transform[] patrolWayPoints;                    
+	public Transform[] patrolWayPoints;
+	private GameObject player;
+	private SphereCollider collider;
 
 	private NavMeshAgent nav;                                                             
 	private float patrolTimer;                              
-	private int wayPointIndex;                              
+	private int wayPointIndex;    
+
 
 
 	void Awake ()
 	{
 		nav = GetComponent<NavMeshAgent> ();
+		player = GameObject.Find ("Player");
 	}
 
 
 	void Update ()
 	{
-		Patrolling();
+		if (InSight ())
+			Attacking ();
+		else 
+			Patrolling();
+	}
+
+	bool InSight () {
+		RaycastHit hit;
+		var rayDirection = player.transform.position - transform.position;
+
+		/*if (Physics.Raycast(transform.position + transform.up, rayDirection.normalized, out hit, player)) {
+			if(hit.collider.gameObject == player)
+			{
+				return true;
+			}
+		}*/
+		return false;
+	}
+
+	void Attacking() {
+		Debug.Log ("ATTACKING");
 	}
 
 	void Patrolling ()
