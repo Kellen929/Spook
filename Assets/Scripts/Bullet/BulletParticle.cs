@@ -4,10 +4,11 @@ using System.Collections;
 public class BulletParticle : MonoBehaviour {
 	private float lifespan = 3.0f;
 	public GameObject particleEffect;
+	private int damage = 1;
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -18,9 +19,10 @@ public class BulletParticle : MonoBehaviour {
 			Destroy(gameObject);
 	}
 
-	void OnCollisionEnter(Collision collision) {
-		if(collision.gameObject.tag == "Enemy")	{
-			Instantiate(particleEffect, transform.position, Quaternion.identity);
+	void OnParticleCollision(GameObject hitThing) {
+		if(hitThing.tag == "Enemy")	{
+			hitThing.GetComponent<BulletInteraction>().decreaseHealth(damage);
+			Instantiate(particleEffect, hitThing.transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 	}
