@@ -27,7 +27,7 @@ public class BulletInteraction : MonoBehaviour {
 	}
 
 	private void killSelf() {
-		sfx.Play();
+	//	sfx.Play();
 		Destroy(gameObject);
 	}
 }
