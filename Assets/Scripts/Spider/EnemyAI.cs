@@ -3,30 +3,74 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
-	public float patrolSpeed = 2f;                                             
+	public float patrolSpeed = 1f;                                             
 	public float patrolWaitTime = 1f;                       
-	public Transform[] patrolWayPoints;                    
+	public Transform[] patrolWayPoints;
+	private GameObject player;
+	private SphereCollider spiderCollider;
+	private float minRange;
 
 	private NavMeshAgent nav;                                                             
 	private float patrolTimer;                              
-	private int wayPointIndex;                              
+	private int wayPointIndex;    
+
 
 
 	void Awake ()
 	{
 		nav = GetComponent<NavMeshAgent> ();
+		player = GameObject.Find ("Player");
+		spiderCollider = GetComponent<SphereCollider> ();
+		minRange = spiderCollider.radius - 1;
 	}
 
 
 	void Update ()
 	{
-		Patrolling();
+		if (InSight ())
+			Engaging ();
+		else 
+			Patrolling();
+	}
+
+	bool InSight () {
+		RaycastHit hit;
+		var rayDirection = player.transform.position - transform.position;
+
+		if (Physics.Raycast(transform.position + transform.up, rayDirection.normalized, out hit, spiderCollider.radius * 2f)) {
+			if (hit.collider.gameObject == player) {
+				GetComponentInChildren<Animator> ().SetBool ("PlayerInSight", true);
+				return true;
+			} else {
+				GetComponentInChildren<Animator> ().SetBool ("PlayerInSight", false);
+			}
+		}
+		return false;
+	}
+
+	void Engaging () {
+		float distance = Vector3.Distance(transform.position, player.transform.position);
+
+		// Moving towards player
+		if (distance > minRange) {
+			nav.destination = player.transform.position;
+			GetComponentInChildren<Animator>().SetBool("NextToPlayer", false);
+		} 
+		// Next to player
+		else
+			Attacking ();
+	}
+
+	void Attacking () {
+		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
+
+		// Player loses health here
 	}
 
 	void Patrolling ()
 	{
 		nav.speed = patrolSpeed;
-
+			
 		if(nav.remainingDistance < nav.stoppingDistance)
 		{
 			patrolTimer += Time.deltaTime;

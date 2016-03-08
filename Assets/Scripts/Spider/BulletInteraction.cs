@@ -2,7 +2,12 @@
 using System.Collections;
 
 public class BulletInteraction : MonoBehaviour {
+	// Public variables
 	public int health = 10;
+	public AudioSource sfx;
+
+	// Private variables
+	
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +27,7 @@ public class BulletInteraction : MonoBehaviour {
 	}
 
 	private void killSelf() {
+		sfx.Play();
 		Destroy(gameObject);
 	}
 }
