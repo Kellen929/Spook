@@ -2,11 +2,14 @@
 using System.Collections;
 
 public class DoorOpenClose : MonoBehaviour {
+	// Public variables
 	public Transform doorTransform;
+	public Transform playerTransform;
+	public AudioSource doorSFX;
+
+	// Private variables
 	private bool doorOpen = false, opening = false;
 	private int count = 0;
-	public Transform playerTransform;
-	//private int xDistAway = 0, zDistAway = 0;
 	private int dist = 4;
 
 	// Use this for initialization
@@ -16,32 +19,19 @@ public class DoorOpenClose : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		// door.position.x - player.position.x 
-		// take abs val of that
-		// distance = 10
-		// if calcDistance <= 10 set closeEnough to true or false;
-
-		// input key == 'e' && position is close enough to the door
-
-		//print ("door position = " + doorTransform.localPosition.x);
-		//print ("playerPosition = " + playerTransform.localPosition.x);
-
-//		print ("door y position = " + doorTransform.localPosition.z);
-//		print ("playerPosition = " + playerTransform.localPosition.z);
 		bool playerCloseEnough = closeEnough();
 
 		if (Input.GetKeyDown(KeyCode.E) && !doorOpen && playerCloseEnough)  {
 			opening = true;
+			doorSFX.Play();
 		}
 		else if (Input.GetKeyDown(KeyCode.E) && doorOpen && playerCloseEnough) {
-			//doorTransform.Rotate (new Vector3 (0, -(doorTransform.rotation.y - 0.5f), 0));	
 			opening = false;
+			doorSFX.Play();
 		}
 
 		if (opening && !doorOpen) {
 			doorTransform.Rotate (new Vector3 (0, (doorTransform.rotation.y - 0.5f), 0)); 
-			//print ("door rotation = " + doorTransform.localRotation.y);
 
 			if (doorTransform.localRotation.y >= 0.98f) {
 				doorOpen = true;

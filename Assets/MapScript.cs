@@ -2,13 +2,18 @@
 using System.Collections;
 
 public class MapScript : MonoBehaviour {
-
+	// Public variables
 	public bool inProgress = false;
 	public bool showingMap = false;
+	public Transform mapTrans;
+	public AudioSource sfx;
+	public AudioClip mapUpSFX;
+	public AudioClip mapDownSFX;
+
+	// Private variables
 	private Vector3 FINAL_MAP_LOCATION = new Vector3(0, 0, 0.54F);
 	private Vector3 START_MAP_LOCATION = new Vector3(0, -.53F, 0.54F);
 	private const float MOVE_SPEED = 0.09f;
-	public Transform mapTrans;
 
 	//camera controlls
 	public Light mapLight;
@@ -45,6 +50,7 @@ public class MapScript : MonoBehaviour {
 			if (mapTrans.localPosition.y >= FINAL_MAP_LOCATION.y) {
 				mainCam.farClipPlane = 1;
 				mapLight.range = 68;
+				sfx.PlayOneShot(mapUpSFX);
 				inProgress = false;
 				mapCam.enabled = true;
 				pLight.enabled = true;
@@ -61,6 +67,7 @@ public class MapScript : MonoBehaviour {
 			//map down
 			if (mapTrans.localPosition.y <= START_MAP_LOCATION.y) {
 
+				sfx.PlayOneShot(mapDownSFX);
 				tabLight.enabled = false;
 				gameObject.GetComponent<Renderer>().enabled = false;
 				inProgress = false;
