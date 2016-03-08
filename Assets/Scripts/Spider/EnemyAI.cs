@@ -3,11 +3,12 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
-	public float patrolSpeed = 2f;                                             
+	public float patrolSpeed = 1f;                                             
 	public float patrolWaitTime = 1f;                       
 	public Transform[] patrolWayPoints;
 	private GameObject player;
-	private SphereCollider collider;
+	private SphereCollider spiderCollider;
+	private float minRange;
 
 	private NavMeshAgent nav;                                                             
 	private float patrolTimer;                              
@@ -19,13 +20,15 @@ public class EnemyAI : MonoBehaviour
 	{
 		nav = GetComponent<NavMeshAgent> ();
 		player = GameObject.Find ("Player");
+		spiderCollider = GetComponent<SphereCollider> ();
+		minRange = spiderCollider.radius - 1;
 	}
 
 
 	void Update ()
 	{
 		if (InSight ())
-			Attacking ();
+			Engaging ();
 		else 
 			Patrolling();
 	}
@@ -34,23 +37,40 @@ public class EnemyAI : MonoBehaviour
 		RaycastHit hit;
 		var rayDirection = player.transform.position - transform.position;
 
-		/*if (Physics.Raycast(transform.position + transform.up, rayDirection.normalized, out hit, player)) {
-			if(hit.collider.gameObject == player)
-			{
+		if (Physics.Raycast(transform.position + transform.up, rayDirection.normalized, out hit, spiderCollider.radius * 2f)) {
+			if (hit.collider.gameObject == player) {
+				GetComponentInChildren<Animator> ().SetBool ("PlayerInSight", true);
 				return true;
+			} else {
+				GetComponentInChildren<Animator> ().SetBool ("PlayerInSight", false);
 			}
-		}*/
+		}
 		return false;
 	}
 
-	void Attacking() {
-		Debug.Log ("ATTACKING");
+	void Engaging () {
+		float distance = Vector3.Distance(transform.position, player.transform.position);
+
+		// Moving towards player
+		if (distance > minRange) {
+			nav.destination = player.transform.position;
+			GetComponentInChildren<Animator>().SetBool("NextToPlayer", false);
+		} 
+		// Next to player
+		else
+			Attacking ();
+	}
+
+	void Attacking () {
+		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
+
+		// Player loses health here
 	}
 
 	void Patrolling ()
 	{
 		nav.speed = patrolSpeed;
-
+			
 		if(nav.remainingDistance < nav.stoppingDistance)
 		{
 			patrolTimer += Time.deltaTime;
