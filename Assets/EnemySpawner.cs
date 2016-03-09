@@ -37,6 +37,10 @@ public class EnemySpawner : MonoBehaviour {
 
 	public void decreaseNumEnemies () {
 		numEnemies--;
+
+		if(numEnemies <= 0 && waveNumber == 3)
+			GameObject.Find("EndGame").GetComponent<EndGame>().GameOver();
+
 		Debug.Log (numEnemies);
 	}
 }
