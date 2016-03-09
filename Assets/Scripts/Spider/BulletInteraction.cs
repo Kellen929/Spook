@@ -31,6 +31,9 @@ public class BulletInteraction : MonoBehaviour {
 		// This call can be used to decrease number of enemies
 		//spawner.GetComponent<EnemySpawner> ().decreaseNumEnemies ();
 		sfx.Play();
+		//SphereCollider spiderCollider = GetComponent<SphereCollider> ();
+		//spiderCollider.enabled = false;
+		Destroy(GetComponent<EnemyAI>());
 		Destroy(gameObject);
 	}
 }
