@@ -54,17 +54,25 @@ public class EnemyAI : MonoBehaviour
 		// Moving towards player
 		if (distance > minRange) {
 			nav.destination = player.transform.position;
-			GetComponentInChildren<Animator>().SetBool("NextToPlayer", false);
+			GetComponentInChildren<Animator> ().SetBool ("NextToPlayer", false);
 		} 
 		// Next to player
-		else
+		else {
 			Attacking ();
+		}
 	}
 
 	void Attacking () {
 		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
+		Health health = player.GetComponent<Health> ();
+		health.decreaseHealth (1);
+	}
 
-		// Player loses health here
+	void OnParticleCollision(GameObject hitThing) {
+		if(hitThing.tag == "Player")	{
+			hitThing.GetComponent<Health>().decreaseHealth(1);
+			Destroy(gameObject);
+		}
 	}
 
 	void Patrolling ()
