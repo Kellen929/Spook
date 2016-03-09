@@ -12,7 +12,7 @@ public class BulletInteraction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spawner = GameObject.Find ("EnemySpawner");
+		spawner = GameObject.Find("EnemySpawner");
 	}
 	
 	// Update is called once per frame
@@ -29,11 +29,10 @@ public class BulletInteraction : MonoBehaviour {
 
 	private void killSelf() {
 		// This call can be used to decrease number of enemies
-		//spawner.GetComponent<EnemySpawner> ().decreaseNumEnemies ();
+		spawner = GameObject.Find("EnemySpawner");
+		spawner.GetComponent<EnemySpawner>().decreaseNumEnemies();
+		sfx = GameObject.Find("Player").GetComponentInChildren<AudioSource>();
 		sfx.Play();
-		//SphereCollider spiderCollider = GetComponent<SphereCollider> ();
-		//spiderCollider.enabled = false;
-		Destroy(GetComponent<EnemyAI>());
 		Destroy(gameObject);
 	}
 }

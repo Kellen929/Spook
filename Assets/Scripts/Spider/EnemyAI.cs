@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour
 		player = GameObject.Find ("Player");
 		spiderCollider = GetComponent<SphereCollider> ();
 		minRange = spiderCollider.radius - 1;
+		patrolWayPoints = (Transform[])GameObject.Find("wayPoints").GetComponents<Transform>();
 	}
 
 
@@ -64,8 +65,8 @@ public class EnemyAI : MonoBehaviour
 
 	void Attacking () {
 		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
-		Health health = player.GetComponent<Health> ();
-		health.decreaseHealth (1);
+		Health health = player.GetComponent<Health>();
+		health.decreaseHealth(1);
 	}
 
 	void OnParticleCollision(GameObject hitThing) {

@@ -28,6 +28,10 @@ public class FirstPersonController : MonoBehaviour {
 	private int gunbobCount = 0;
 	private bool isBobbingDown = true;
 	private bool isPaused = false;
+	private bool isEndGame = false;
+	private Vector3 FINAL_USER_LOCATION = new Vector3(0, 0, 0.54F);
+	private Vector3 START_USER_LOCATION;
+	private const float MOVE_SPEED = 0.1f;
 
 	// Private Constants
 	private const float MOVE_FASTER_MULTIPLIER = 6.0f;
@@ -51,80 +55,79 @@ public class FirstPersonController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!isPaused) {
+		if (!isPaused && !isEndGame) {
 			// Rotation
-			transform.Rotate(0, Input.GetAxis("Mouse X") * MOUSE_SENSITIVITY, 0);
+			transform.Rotate (0, Input.GetAxis ("Mouse X") * MOUSE_SENSITIVITY, 0);
 
-			verticalRotation -= Input.GetAxis("Mouse Y") * MOUSE_SENSITIVITY;
-			verticalRotation = Mathf.Clamp(verticalRotation, -PITCH_RANGE, PITCH_RANGE);
-			mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
-			spotLight.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+			verticalRotation -= Input.GetAxis ("Mouse Y") * MOUSE_SENSITIVITY;
+			verticalRotation = Mathf.Clamp (verticalRotation, -PITCH_RANGE, PITCH_RANGE);
+			mainCamera.transform.localRotation = Quaternion.Euler (verticalRotation, 0, 0);
+			spotLight.transform.localRotation = Quaternion.Euler (verticalRotation, 0, 0);
 
 			
 			// Jumping
 			if (playerController.isGrounded) {
-				if(isFalling) {
-					sfx.PlayOneShot(landSFX);
+				if (isFalling) {
+					sfx.PlayOneShot (landSFX);
 					isFalling = false;
 				}
-				if (Input.GetButton("Jump")) {
-					sfx.PlayOneShot(jumpSFX);
+				if (Input.GetButton ("Jump")) {
+					sfx.PlayOneShot (jumpSFX);
 					jumpVector.y = JUMP_FORCE;
 					isFalling = true;
 				}
 			}
 
 			jumpVector.y -= GRAVITY * Time.deltaTime;
-			playerController.Move(jumpVector * Time.deltaTime);
+			playerController.Move (jumpVector * Time.deltaTime);
 
 
 			// Movement	
-			float forwardSpeed = Input.GetAxis("Vertical");
-			float sideSpeed = Input.GetAxis("Horizontal");
+			float forwardSpeed = Input.GetAxis ("Vertical");
+			float sideSpeed = Input.GetAxis ("Horizontal");
 
-			Vector3 velocity = new Vector3(sideSpeed * MOVE_FASTER_MULTIPLIER, 0, forwardSpeed * MOVE_FASTER_MULTIPLIER);
+			Vector3 velocity = new Vector3 (sideSpeed * MOVE_FASTER_MULTIPLIER, 0, forwardSpeed * MOVE_FASTER_MULTIPLIER);
 			velocity = transform.rotation * velocity;
-			playerController.SimpleMove(velocity);
+			playerController.SimpleMove (velocity);
 
 			// Movement SFX & Gunbob
-			if(velocity != Vector3.zero) {
+			if (velocity != Vector3.zero) {
 				// Movement SFX
-				if(!sfx.isPlaying) {
-					switch(stepIdx) {
-						case 0:
-							sfx.PlayOneShot(step1SFX);
-							break;
-						case 1:
-							sfx.PlayOneShot(step2SFX);
-							break;
-						case 2:
-							sfx.PlayOneShot(step3SFX);
-							break;
-						case 3:
-							sfx.PlayOneShot(step4SFX);
-							break;
+				if (!sfx.isPlaying) {
+					switch (stepIdx) {
+					case 0:
+						sfx.PlayOneShot (step1SFX);
+						break;
+					case 1:
+						sfx.PlayOneShot (step2SFX);
+						break;
+					case 2:
+						sfx.PlayOneShot (step3SFX);
+						break;
+					case 3:
+						sfx.PlayOneShot (step4SFX);
+						break;
 					}
 					stepIdx = stepIdx >= 3 ? 0 : stepIdx + 1; 
 				}
 		
 				// Gunbob
-				if(isBobbingDown && gunbobCount <= 8) {
+				if (isBobbingDown && gunbobCount <= 8) {
 					gunbobPos += gunTrans.up * Time.deltaTime * GUNBOB_SPEED;
 
-					if(gunbobCount++ >= 8)
+					if (gunbobCount++ >= 8)
 						isBobbingDown = false;
-				}
-				else {
+				} else {
 					gunbobPos += (-1 * gunTrans.up) * Time.deltaTime * GUNBOB_SPEED;
 
-					if(gunbobCount-- <= 0)
+					if (gunbobCount-- <= 0)
 						isBobbingDown = true;
 				}
-				gunTrans.localPosition = gunbobPos + gunbobAxis * Mathf.Sin(Time.time * GUNBOB_FREQ) * GUNBOB_MAG;
+				gunTrans.localPosition = gunbobPos + gunbobAxis * Mathf.Sin (Time.time * GUNBOB_FREQ) * GUNBOB_MAG;
 			}
 
 			// Crouching
-			if (playerController.isGrounded && Input.GetKeyDown(KeyCode.C)) {
+			if (playerController.isGrounded && Input.GetKeyDown (KeyCode.C)) {
 				isCurrentlyCrouching = !isCurrentlyCrouching;
 				crouchState = true;
 			}
@@ -137,8 +140,7 @@ public class FirstPersonController : MonoBehaviour {
 
 				// Crouching means quieter movement
 				sfx.volume = 0.2f;
-			}
-			else if (crouchState && !isCurrentlyCrouching && mainCamera.transform.position.y < MAX_CAMERA) {
+			} else if (crouchState && !isCurrentlyCrouching && mainCamera.transform.position.y < MAX_CAMERA) {
 				Vector3 tmpCamPos = new Vector3 (mainCamera.transform.position.x, mainCamera.transform.position.y + CROUCH_SPEED, mainCamera.transform.position.z);
 				mainCamera.transform.position = tmpCamPos;
 				Vector3 tmpLightPos = new Vector3 (spotLight.transform.position.x, spotLight.transform.position.y + CROUCH_SPEED, spotLight.transform.position.z);
@@ -146,10 +148,12 @@ public class FirstPersonController : MonoBehaviour {
 
 				// Standing means louder movement
 				sfx.volume = 0.5f;
-			}
-			else if (mainCamera.transform.position.y <= MIN_CAMERA || mainCamera.transform.position.y >= MAX_CAMERA) {
+			} else if (mainCamera.transform.position.y <= MIN_CAMERA || mainCamera.transform.position.y >= MAX_CAMERA) {
 				crouchState = false;
 			}
+		}
+		else if(isEndGame) {
+
 		}
 	}
 

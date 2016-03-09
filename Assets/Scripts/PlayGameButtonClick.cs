@@ -7,7 +7,7 @@ public class PlayGameButtonClick : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		levelAsync = Application.LoadLevelAdditiveAsync("leve1");
+		//levelAsync = Application.LoadLevelAdditiveAsync("leve1");
 	}
 	
 	// Update is called once per frame
