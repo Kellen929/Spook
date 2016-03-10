@@ -15,7 +15,6 @@ public class Health : MonoBehaviour {
 	}
 	int k = 1;
 	public void decreaseHealth(int damage) {
-		print("Player dmg!"+ k++);
 		health -= damage;
 
 		if (health <= 0)
