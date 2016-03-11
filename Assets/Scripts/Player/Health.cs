@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Health : MonoBehaviour {
-	public int health = 20;
+	public int health = 6000;
 
 	// Use this for initialization
 	void Start () {
@@ -13,16 +13,16 @@ public class Health : MonoBehaviour {
 	void Update () {
 	
 	}
-
+	int k = 1;
 	public void decreaseHealth(int damage) {
 		health -= damage;
 
-		if(health <= 0)
-			killSelf();
+		if (health <= 0)
+			killSelf ();
 	}
 
 	private void killSelf() {
 		//End condition for game in defeat
-		print("Game Over!");
+		GameObject.Find("EndGame").GetComponent<EndGame>().GameOver();
 	}
 }
