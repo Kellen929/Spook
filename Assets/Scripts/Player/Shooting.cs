@@ -53,6 +53,7 @@ public class Shooting : MonoBehaviour {
 		if(!isPaused) {
 			if(Input.GetButtonDown("Fire1")) {
 				if(ammoCount > 0) {
+					ammoCount--;
 					animating = true;
 					slideExpand = true;
 					bodyExpand = true;

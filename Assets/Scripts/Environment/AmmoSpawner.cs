@@ -11,7 +11,7 @@ public class AmmoSpawner : MonoBehaviour {
 	private GameObject box;
 
 	// Constants
-	private const float AMMO_SPAWN_DELAY = 30.0f;
+	private const float AMMO_SPAWN_DELAY = 10.0f;
 
 
 	// Use this for initialization
