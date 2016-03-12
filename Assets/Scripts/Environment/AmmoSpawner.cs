@@ -28,14 +28,14 @@ public class AmmoSpawner : MonoBehaviour {
 	}
 
 	IEnumerator spawnAmmoBox(float time) {
-		yield return WaitForSeconds(time);
+		yield return new WaitForSeconds(time);
 
 		// Spawn the ammo box
 		box = Instantiate(AmmoBoxPrefab);
-		box.transform = spawnLocations[Random.Range(0, 3)];
+		box.transform.position = spawnLocations[Random.Range(0, 3)].position;
 	}
 
-	void pickupAmmoBox() {
+	public void pickupAmmoBox() {
 		Destroy(box);
 		ammoBoxOnMap = false;
 	}

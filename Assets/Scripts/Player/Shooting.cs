@@ -16,6 +16,7 @@ public class Shooting : MonoBehaviour {
 	// Audio
 	public AudioClip gunshot;
 	public AudioClip shellFall;
+	public AudioClip clickSFX;
 	public AudioSource sfx;
 
 	private const float bulletImpulse = 35.0f;
@@ -37,6 +38,7 @@ public class Shooting : MonoBehaviour {
 	private bool bodyExpand = false;
 	private bool slideDone = false;
 	private bool bodyDone = false;
+	private int ammoCount = 45;
 
 	// Use this for initialization
 	void Start () {
@@ -50,15 +52,20 @@ public class Shooting : MonoBehaviour {
 	void Update () {
 		if(!isPaused) {
 			if(Input.GetButtonDown("Fire1")) {
-				animating = true;
-				slideExpand = true;
-				bodyExpand = true;
-				PlayMuzzleParticle();
-				sfx.PlayOneShot(gunshot);
-				StartCoroutine(PlayShellSFX(SHELL_DELAY));
-				// REMOVED BULLET
-				//GameObject bullet = (GameObject)Instantiate(bulletPrefab, cam.transform.position + cam.transform.forward, cam.transform.rotation * bulletPrefab.transform.rotation);
-				//bullet.GetComponent<Rigidbody>().AddForce(cam.transform.forward * bulletImpulse, ForceMode.Impulse);
+				if(ammoCount > 0) {
+					animating = true;
+					slideExpand = true;
+					bodyExpand = true;
+					PlayMuzzleParticle();
+					sfx.PlayOneShot(gunshot);
+					StartCoroutine(PlayShellSFX(SHELL_DELAY));
+					// REMOVED BULLET
+					//GameObject bullet = (GameObject)Instantiate(bulletPrefab, cam.transform.position + cam.transform.forward, cam.transform.rotation * bulletPrefab.transform.rotation);
+					//bullet.GetComponent<Rigidbody>().AddForce(cam.transform.forward * bulletImpulse, ForceMode.Impulse);
+				}
+				else {
+					sfx.PlayOneShot(clickSFX);
+				}
 			}
 
 			// Gun Animation
@@ -139,5 +146,13 @@ public class Shooting : MonoBehaviour {
 
 	public void togglePaused() {
 		isPaused = !isPaused;
+	}
+
+	public void updateAmmo(int byThisMany) {
+		ammoCount += byThisMany;
+	}
+
+	public int getAmmoCount() {
+		return ammoCount;
 	}
 }
