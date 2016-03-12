@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyAI : MonoBehaviour
@@ -8,6 +9,7 @@ public class EnemyAI : MonoBehaviour
 	public Transform[] patrolWayPoints;
 	private GameObject player;
 	private SphereCollider spiderCollider;
+	public Slider healthSlider;
 	private float minRange;
 
 	private NavMeshAgent nav;                                                             
@@ -64,9 +66,12 @@ public class EnemyAI : MonoBehaviour
 	}
 
 	void Attacking () {
+		Debug.Log ("Attacking");
 		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
 		Health health = player.GetComponent<Health>();
 		health.decreaseHealth(1);
+		healthSlider.value = health.health;
+		Debug.Log (health.health);
 	}
 
 	void OnParticleCollision(GameObject hitThing) {
