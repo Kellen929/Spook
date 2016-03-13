@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour {
 	public Transform[] points;
 	public GameObject enemy; 
-	public int waveNumber = 0;
+	public int waveNumber = 3;
 	public int numEnemies = 0;
 
 	// Use this for initialization
@@ -22,12 +22,12 @@ public class EnemySpawner : MonoBehaviour {
 		// Only spawn 3 waves
 		if (waveNumber < 3) {
 			Instantiate (enemy, points [index].position, points [index].rotation);
+			numEnemies++;
 		} else {
 			// All waves are done
 			Debug.Log ("Waves are spawned");
 		}
 
-		numEnemies++;
 		// Once 4 enemies are spawned, it's a new wave
 		if (numEnemies % 4 == 0) {
 			waveNumber++;
@@ -37,9 +37,13 @@ public class EnemySpawner : MonoBehaviour {
 
 	public void decreaseNumEnemies () {
 		numEnemies--;
+		print("num enemies: " + numEnemies);
+		print("wave: " + waveNumber);
 
-		if(numEnemies <= 0 && waveNumber == 3)
-			GameObject.Find("EndGame").GetComponent<EndGame>().GameOver();
+		if(numEnemies <= 0 && waveNumber == 3) {
+			print("END GAME");
+			GameObject.Find("EndGame").GetComponent<EndGame>().WinGame();
+		}
 
 		Debug.Log (numEnemies);
 	}

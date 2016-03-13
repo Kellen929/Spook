@@ -13,8 +13,8 @@ public class Health : MonoBehaviour {
 	void Update () {
 	
 	}
-	int k = 1;
 	public void decreaseHealth(int damage) {
+		//print("health = " + health);
 		health -= damage;
 
 		if (health <= 0)
