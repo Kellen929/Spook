@@ -27,9 +27,11 @@ public class EscapeMenu : MonoBehaviour {
 			resumeCanvas.gameObject.SetActive(true);
 			Time.timeScale = 0;
 			Cursor.visible = true;
+			Screen.lockCursor = false;
 		} else if (!isPaused) {
 			resumeCanvas.gameObject.SetActive(false);
 			Cursor.visible = false;
+			Screen.lockCursor = true;
 			Time.timeScale = 1;
 		}
 	}

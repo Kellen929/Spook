@@ -18,6 +18,7 @@ public class ResumeGameButton : MonoBehaviour {
 	public void ResumeGame() {
 		resumeCanvas.gameObject.SetActive(false);
 		Cursor.visible = false;
+		Screen.lockCursor = true;
 		Time.timeScale = 1;
 	}
 }
