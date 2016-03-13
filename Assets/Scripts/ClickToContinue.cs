@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EndGame : MonoBehaviour {
+public class ClickToContinue : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -13,11 +13,8 @@ public class EndGame : MonoBehaviour {
 	
 	}
 
-	public void GameOver() {
-		Application.LoadLevel("gameOver");
-	}
-
-	public void WinGame() {
-		Application.LoadLevel("winGame");
+	public void goToMainMenu() {
+		Application.LoadLevel("menu");
 	}
 }
+
