@@ -49,6 +49,7 @@ public class FirstPersonController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
+		Screen.lockCursor = true;
 		gunbobPos = gunTrans.localPosition;
 		gunbobAxis = gunTrans.right;
 	}
