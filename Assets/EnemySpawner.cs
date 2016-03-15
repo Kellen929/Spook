@@ -6,7 +6,8 @@ public class EnemySpawner : MonoBehaviour {
 	public Transform[] points;
 	public GameObject enemy; 
 	public int waveNumber = 3;
-	public int numEnemies = 0;
+	public int numEnemies = 0; // Current existing enemies
+	public int spawnedSoFar = 0; // How many we've spawned thus far
 	public int score = 0;
 	private Text scoreCount;
 	private Text waveCount;
@@ -32,13 +33,14 @@ public class EnemySpawner : MonoBehaviour {
 		if (waveNumber < 3) {
 			Instantiate (enemy, points [index].position, points [index].rotation);
 			numEnemies++;
+			spawnedSoFar++;
 		} else {
 			// All waves are done
 			Debug.Log ("Waves are spawned");
 		}
 
 		// Once 4 enemies are spawned, it's a new wave
-		if (numEnemies % 4 == 0) {
+		if (spawnedSoFar % 4 == 0) {
 			waveNumber++;
 			waveCount.text = waveNumber.ToString ();
 		}
@@ -49,8 +51,6 @@ public class EnemySpawner : MonoBehaviour {
 		numEnemies--;
 		score++;
 		scoreCount.text = score.ToString ();
-		print("num enemies: " + numEnemies);
-		print("wave: " + waveNumber);
 
 		if(numEnemies <= 0 && waveNumber == 3) {
 			print("END GAME");
