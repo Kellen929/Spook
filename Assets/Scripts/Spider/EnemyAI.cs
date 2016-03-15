@@ -9,7 +9,6 @@ public class EnemyAI : MonoBehaviour
 	public Transform[] patrolWayPoints;
 	private GameObject player;
 	private SphereCollider spiderCollider;
-	public Slider healthSlider;
 	private float minRange;
 
 	private NavMeshAgent nav;                                                             
@@ -69,7 +68,6 @@ public class EnemyAI : MonoBehaviour
 		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
 		Health health = player.GetComponent<Health>();
 		health.decreaseHealth(1);
-		healthSlider.value = health.health;
 	}
 
 	void OnParticleCollision(GameObject hitThing) {

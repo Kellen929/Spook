@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour {
-	public int health = 6000;
+	public int health = 2000;
+	public Slider healthSlider;
 
 	// Use this for initialization
 	void Start () {
-	
+		GameObject canvas = GameObject.Find ("HUDCanvas"); // The HUDCanvas
+		GameObject ui = canvas.transform.Find ("HealthUI").gameObject; // The UI object
+
+		if (ui != null) {
+			// This is kinda hacky - maybe there's a better way to do this?
+			healthSlider = ui.transform.GetChild(1).gameObject.GetComponent<Slider>();
+		}
 	}
 	
 	// Update is called once per frame
@@ -14,8 +22,9 @@ public class Health : MonoBehaviour {
 	
 	}
 	public void decreaseHealth(int damage) {
-		//print("health = " + health);
 		health -= damage;
+
+		healthSlider.value = health;
 
 		if (health <= 0)
 			killSelf ();
