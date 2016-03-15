@@ -58,14 +58,14 @@ public class Shooting : MonoBehaviour {
 					slideExpand = true;
 					bodyExpand = true;
 					PlayMuzzleParticle();
-					sfx.PlayOneShot(gunshot);
-					StartCoroutine(PlayShellSFX(SHELL_DELAY));
-					// REMOVED BULLET
-					//GameObject bullet = (GameObject)Instantiate(bulletPrefab, cam.transform.position + cam.transform.forward, cam.transform.rotation * bulletPrefab.transform.rotation);
-					//bullet.GetComponent<Rigidbody>().AddForce(cam.transform.forward * bulletImpulse, ForceMode.Impulse);
+					if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn) {
+						sfx.PlayOneShot(gunshot);
+						StartCoroutine(PlayShellSFX(SHELL_DELAY));
+					}
 				}
 				else {
-					sfx.PlayOneShot(clickSFX);
+					if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+						sfx.PlayOneShot(clickSFX);
 				}
 			}
 

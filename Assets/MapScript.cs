@@ -50,7 +50,8 @@ public class MapScript : MonoBehaviour {
 			if (mapTrans.localPosition.y >= FINAL_MAP_LOCATION.y) {
 				mainCam.farClipPlane = 1;
 				mapLight.range = 68;
-				sfx.PlayOneShot(mapUpSFX);
+				if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+					sfx.PlayOneShot(mapUpSFX);
 				inProgress = false;
 				mapCam.enabled = true;
 				pLight.enabled = true;
@@ -66,8 +67,8 @@ public class MapScript : MonoBehaviour {
 
 			//map down
 			if (mapTrans.localPosition.y <= START_MAP_LOCATION.y) {
-
-				sfx.PlayOneShot(mapDownSFX);
+				if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+					sfx.PlayOneShot(mapDownSFX);
 				tabLight.enabled = false;
 				gameObject.GetComponent<Renderer>().enabled = false;
 				inProgress = false;

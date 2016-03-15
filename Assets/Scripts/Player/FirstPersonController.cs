@@ -29,9 +29,6 @@ public class FirstPersonController : MonoBehaviour {
 	private bool isBobbingDown = true;
 	private bool isPaused = false;
 	private bool isEndGame = false;
-	private Vector3 FINAL_USER_LOCATION = new Vector3(0, 0, 0.54F);
-	private Vector3 START_USER_LOCATION;
-	private const float MOVE_SPEED = 0.1f;
 
 	// Private Constants
 	private const float MOVE_FASTER_MULTIPLIER = 6.0f;
@@ -69,11 +66,13 @@ public class FirstPersonController : MonoBehaviour {
 			// Jumping
 			if (playerController.isGrounded) {
 				if (isFalling) {
-					sfx.PlayOneShot (landSFX);
+					if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+						sfx.PlayOneShot (landSFX);
 					isFalling = false;
 				}
 				if (Input.GetButton ("Jump")) {
-					sfx.PlayOneShot (jumpSFX);
+					if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+						sfx.PlayOneShot (jumpSFX);
 					jumpVector.y = JUMP_FORCE;
 					isFalling = true;
 				}
@@ -94,19 +93,19 @@ public class FirstPersonController : MonoBehaviour {
 			// Movement SFX & Gunbob
 			if (velocity != Vector3.zero) {
 				// Movement SFX
-				if (!sfx.isPlaying) {
+				if (!sfx.isPlaying && GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn) {
 					switch (stepIdx) {
 					case 0:
-						sfx.PlayOneShot (step1SFX);
+						sfx.PlayOneShot(step1SFX);
 						break;
 					case 1:
-						sfx.PlayOneShot (step2SFX);
+						sfx.PlayOneShot(step2SFX);
 						break;
 					case 2:
-						sfx.PlayOneShot (step3SFX);
+						sfx.PlayOneShot(step3SFX);
 						break;
 					case 3:
-						sfx.PlayOneShot (step4SFX);
+						sfx.PlayOneShot(step4SFX);
 						break;
 					}
 					stepIdx = stepIdx >= 3 ? 0 : stepIdx + 1; 
@@ -128,12 +127,12 @@ public class FirstPersonController : MonoBehaviour {
 			}
 
 			// Crouching
-			if (playerController.isGrounded && Input.GetKeyDown (KeyCode.C)) {
+			if(playerController.isGrounded && Input.GetKeyDown (KeyCode.C)) {
 				isCurrentlyCrouching = !isCurrentlyCrouching;
 				crouchState = true;
 			}
 
-			if (crouchState && isCurrentlyCrouching && mainCamera.transform.position.y > MIN_CAMERA) {
+			if(crouchState && isCurrentlyCrouching && mainCamera.transform.position.y > MIN_CAMERA) {
 				Vector3 tmpCamPos = new Vector3 (mainCamera.transform.position.x, mainCamera.transform.position.y - CROUCH_SPEED, mainCamera.transform.position.z);
 				mainCamera.transform.position = tmpCamPos;
 				Vector3 tmpLightPos = new Vector3 (spotLight.transform.position.x, spotLight.transform.position.y - CROUCH_SPEED, spotLight.transform.position.z);
@@ -141,7 +140,8 @@ public class FirstPersonController : MonoBehaviour {
 
 				// Crouching means quieter movement
 				sfx.volume = 0.2f;
-			} else if (crouchState && !isCurrentlyCrouching && mainCamera.transform.position.y < MAX_CAMERA) {
+			}
+			else if(crouchState && !isCurrentlyCrouching && mainCamera.transform.position.y < MAX_CAMERA) {
 				Vector3 tmpCamPos = new Vector3 (mainCamera.transform.position.x, mainCamera.transform.position.y + CROUCH_SPEED, mainCamera.transform.position.z);
 				mainCamera.transform.position = tmpCamPos;
 				Vector3 tmpLightPos = new Vector3 (spotLight.transform.position.x, spotLight.transform.position.y + CROUCH_SPEED, spotLight.transform.position.z);

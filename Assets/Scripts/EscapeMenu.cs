@@ -9,6 +9,11 @@ public class EscapeMenu : MonoBehaviour {
 	public Button resumeGameButton;
 	public Button quitButton;
 
+	// Sound toggles
+	public bool sfxOn = true;
+	private bool musicOn = true;
+	public AudioSource music;
+
 	private bool isPaused = false;
 	// Use this for initialization
 	void Start () {
@@ -44,5 +49,17 @@ public class EscapeMenu : MonoBehaviour {
 
 	public void quitGame() {
 		Application.Quit();
+	}
+
+	public void toggleMusic() {
+		musicOn = !musicOn;
+		if(musicOn)
+			music.UnPause();
+		else
+			music.Pause();
+	}
+
+	public void toggleSFX() {
+		sfxOn = !sfxOn;
 	}
 }
