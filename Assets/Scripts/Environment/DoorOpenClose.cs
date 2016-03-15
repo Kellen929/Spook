@@ -23,11 +23,13 @@ public class DoorOpenClose : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.E) && !doorOpen && playerCloseEnough)  {
 			opening = true;
-			doorSFX.Play();
+			 if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+				doorSFX.Play();
 		}
 		else if (Input.GetKeyDown(KeyCode.E) && doorOpen && playerCloseEnough) {
 			opening = false;
-			doorSFX.Play();
+			 if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+				doorSFX.Play();
 		}
 
 		if (opening && !doorOpen) {
