@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using System.Text;
 
 public class Shooting : MonoBehaviour {
 
@@ -38,7 +40,10 @@ public class Shooting : MonoBehaviour {
 	private bool bodyExpand = false;
 	private bool slideDone = false;
 	private bool bodyDone = false;
-	private int ammoCount = 45;
+	private int ammoCount = 40;
+
+	// Ammo Count
+	public Text ammoCountText;
 
 	// Use this for initialization
 	void Start () {
@@ -46,6 +51,7 @@ public class Shooting : MonoBehaviour {
 		EXTENDED_BODY_POS = new Vector3(bodyTrans.localPosition.x + 0.5f,
 										bodyTrans.localPosition.y - 0.2f,
 										bodyTrans.localPosition.z + 0.5f);
+		ammoCountText = GameObject.Find ("HUDCanvas").transform.GetChild (2).transform.Find ("AmmoCount").GetComponent<Text> ();
 	}
 	
 	// Update is called once per frame
@@ -58,6 +64,9 @@ public class Shooting : MonoBehaviour {
 					slideExpand = true;
 					bodyExpand = true;
 					PlayMuzzleParticle();
+					// Update the ammo count
+					ammoCountText.text = ammoCountText.text.Remove(ammoCountText.text.Length - 1);
+
 					if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn) {
 						sfx.PlayOneShot(gunshot);
 						StartCoroutine(PlayShellSFX(SHELL_DELAY));
@@ -151,6 +160,12 @@ public class Shooting : MonoBehaviour {
 
 	public void updateAmmo(int byThisMany) {
 		ammoCount += byThisMany;
+		StringBuilder stringBuilder = new StringBuilder ();
+		// Rebuild the ammo count text
+		for (int i = 0; i < ammoCount; i++) {
+			stringBuilder.Append ("I");
+		}
+		ammoCountText.text = stringBuilder.ToString ();
 	}
 
 	public int getAmmoCount() {
