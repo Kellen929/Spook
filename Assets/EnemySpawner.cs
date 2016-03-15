@@ -1,14 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour {
 	public Transform[] points;
 	public GameObject enemy; 
 	public int waveNumber = 3;
 	public int numEnemies = 0;
+	public int score = 0;
+	private Text scoreCount;
+	private Text waveCount;
 
 	// Use this for initialization
 	void Start () {
+		Transform scoreUI = GameObject.Find ("HUDCanvas").transform.GetChild (3);
+		scoreCount = scoreUI.Find ("ScoreCount").GetComponent<Text> ();
+		waveCount = scoreUI.Find ("WaveCount").GetComponent<Text> ();
+		scoreCount.text = "0";
+		waveCount.text = "1";
 		InvokeRepeating ("Spawn", 1, 10);
 	}
 	
@@ -31,12 +40,15 @@ public class EnemySpawner : MonoBehaviour {
 		// Once 4 enemies are spawned, it's a new wave
 		if (numEnemies % 4 == 0) {
 			waveNumber++;
+			waveCount.text = waveNumber.ToString ();
 		}
 
 	}
 
 	public void decreaseNumEnemies () {
 		numEnemies--;
+		score++;
+		scoreCount.text = score.ToString ();
 		print("num enemies: " + numEnemies);
 		print("wave: " + waveNumber);
 

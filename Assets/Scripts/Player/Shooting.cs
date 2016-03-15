@@ -161,6 +161,7 @@ public class Shooting : MonoBehaviour {
 	public void updateAmmo(int byThisMany) {
 		ammoCount += byThisMany;
 		StringBuilder stringBuilder = new StringBuilder ();
+		// Rebuild the ammo count text
 		for (int i = 0; i < ammoCount; i++) {
 			stringBuilder.Append ("I");
 		}
