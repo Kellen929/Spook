@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour {
-	public int health = 2000;
+	public int health = 1000;
 	public Slider healthSlider;
 	public Image image;
 	private bool takingDamage;
@@ -37,6 +37,7 @@ public class Health : MonoBehaviour {
 		health -= damage;
 		takingDamage = true;
 		healthSlider.value = health;
+		Debug.Log (health);
 
 		if (health <= 0)
 			killSelf ();
