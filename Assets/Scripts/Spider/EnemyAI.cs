@@ -66,12 +66,10 @@ public class EnemyAI : MonoBehaviour
 	}
 
 	void Attacking () {
-		Debug.Log ("Attacking");
 		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
 		Health health = player.GetComponent<Health>();
 		health.decreaseHealth(1);
 		healthSlider.value = health.health;
-		Debug.Log (health.health);
 	}
 
 	void OnParticleCollision(GameObject hitThing) {
