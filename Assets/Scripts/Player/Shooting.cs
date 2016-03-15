@@ -52,6 +52,12 @@ public class Shooting : MonoBehaviour {
 										bodyTrans.localPosition.y - 0.2f,
 										bodyTrans.localPosition.z + 0.5f);
 		ammoCountText = GameObject.Find ("HUDCanvas").transform.GetChild (2).transform.Find ("AmmoCount").GetComponent<Text> ();
+		// Build the ammo string
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < ammoCount; i++) {
+			builder.Append ("I");
+		}
+		ammoCountText.text = builder.ToString ();
 	}
 	
 	// Update is called once per frame
