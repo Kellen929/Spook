@@ -31,8 +31,10 @@ public class BulletInteraction : MonoBehaviour {
 		// This call can be used to decrease number of enemies
 		spawner = GameObject.Find("EnemySpawner");
 		spawner.GetComponent<EnemySpawner>().decreaseNumEnemies();
-		sfx = GameObject.Find("SpiderSFX").GetComponent<AudioSource>();
-		sfx.Play();
+		if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn) {
+			sfx = GameObject.Find("SpiderSFX").GetComponent<AudioSource>();
+			sfx.Play();
+		}
 		Destroy(gameObject);
 	}
 }

@@ -14,6 +14,10 @@ public class EndGame : MonoBehaviour {
 	}
 
 	public void GameOver() {
-		Application.LoadLevel("menu");
+		Application.LoadLevel("gameOver");
+	}
+
+	public void WinGame() {
+		Application.LoadLevel("winGame");
 	}
 }
