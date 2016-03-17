@@ -4,11 +4,11 @@ using System.Collections;
 public class BulletInteraction : MonoBehaviour {
 	// Public variables
 	public int health = 10;
-	public AudioSource sfx;
-	private GameObject spawner;
+	public GameObject spiderDieParticle;
 
 	// Private variables
-	
+	private GameObject spawner;
+	private AudioSource sfx;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +35,9 @@ public class BulletInteraction : MonoBehaviour {
 			sfx = GameObject.Find("SpiderSFX").GetComponent<AudioSource>();
 			sfx.Play();
 		}
+		// Particle effect spider death call
+		spiderDieParticle.transform.position = transform.position;
+		Instantiate(spiderDieParticle);
 		Destroy(gameObject);
 	}
 }
