@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
 		player = GameObject.Find ("Player");
 		spiderCollider = GetComponent<SphereCollider> ();
 		minRange = spiderCollider.radius - 2;
-		patrolWayPoints = (Transform[])GameObject.Find("wayPoints").GetComponents<Transform>();
+		//patrolWayPoints = (Transform[])GameObject.Find("wayPoints").GetComponents<Transform>();
 	}
 		
 	void Update ()
@@ -114,11 +114,11 @@ public class EnemyAI : MonoBehaviour
 		nav.speed = patrolSpeed;
 		if(nav.remainingDistance < nav.stoppingDistance)
 		{
-			index = (index + 1) % patrolWayPoints.Length;
+			index = (index + 1) % 2;
 			patrolTimer += Time.deltaTime;
 		}
 
 		Debug.Log ("Patrolling");
-		nav.destination = patrolWayPoints[index].position;
+		nav.destination = patrolWayPoints[index + 1].position;
 	}
 }

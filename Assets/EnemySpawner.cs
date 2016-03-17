@@ -29,21 +29,22 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void Spawn () {
-		int index = Random.Range (0, points.Length); // Randomly spawn at one of two locations
+		int index = isOriginal ? 0 : 1;
+			
 		// Only spawn 3 waves
 		if (waveNumber <= 4) {
 			GameObject spider = Instantiate (enemy, points [index].position, points [index].rotation) as GameObject;
-			Debug.Log (spider);
+
 			EnemyAI enemyAI = spider.GetComponent<EnemyAI> ();
 			Debug.Log (enemyAI);
 
 			if (isOriginal) { // Assign this the original way points
 				isOriginal = false;
-				enemyAI.patrolWayPoints = (Transform[])GameObject.Find("wayPoints").GetComponents<Transform>();
+				enemyAI.patrolWayPoints = GameObject.Find("wayPoints").GetComponentsInChildren<Transform>();
 				
 			} else { // Assign this the new way points
 				isOriginal = true;
-				enemyAI.patrolWayPoints = (Transform[])GameObject.Find("wayPoints").GetComponents<Transform>();
+				enemyAI.patrolWayPoints = GameObject.Find("wayPoints2").GetComponentsInChildren<Transform>();
 			}
 
 			numEnemies++;
