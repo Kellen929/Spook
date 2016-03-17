@@ -18,7 +18,7 @@ public class BulletParticle : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		AudioSource[] aSources = GameObject.Find("Player").GetComponents<AudioSource>();
-		sfx = aSources[2];
+		sfx = aSources[1];
 	}
 	
 	// Update is called once per frame
@@ -33,7 +33,8 @@ public class BulletParticle : MonoBehaviour {
 
 	void OnParticleCollision(GameObject hitThing) {
 		if(hitThing.tag == "Enemy")	{
-			hitSFX();
+			if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
+				hitSFX();
 			hitThing.GetComponent<BulletInteraction>().decreaseHealth(DAMAGE);
 			Instantiate(particleEffect, hitThing.transform.position, Quaternion.identity);
 			Destroy(gameObject);
