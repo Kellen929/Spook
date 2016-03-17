@@ -7,7 +7,7 @@ public class Health : MonoBehaviour {
 	public Slider healthSlider;
 	public Image image;
 	private bool takingDamage;
-	private float damageFlash = 4f;
+	private float damageFlash = 1f;
 
 	// Use this for initialization
 	void Start () {
@@ -25,19 +25,22 @@ public class Health : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	private bool isColoring = false;
 	void Update () {
 		if (takingDamage) {
 			image.color = new Color (1f, 0f, 0f, 0.1f);
-		} else {
+			takingDamage = false;
+			isColoring = true;
+		}
+		if (isColoring && !(image.color.Equals (Color.clear))) {
 			image.color = Color.Lerp (image.color, Color.clear, damageFlash * Time.deltaTime);
 		}
-		takingDamage = false;
 	}
+
 	public void decreaseHealth(int damage) {
 		health -= damage;
 		takingDamage = true;
 		healthSlider.value = health;
-		Debug.Log (health);
 
 		if (health <= 0)
 			killSelf ();
