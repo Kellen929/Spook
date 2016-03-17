@@ -4,29 +4,30 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
-	public float patrolSpeed = 1f;                                             
-	public float patrolWaitTime = 1f;                       
-	public Transform[] patrolWayPoints;
-	private GameObject player;
-	private SphereCollider spiderCollider;
+	public Transform[] patrolWayPoints; // The list of patrol points the spider will cycle through
+	private GameObject player; // The player GameObject
+	private SphereCollider spiderCollider; // The sphere collider attached to the spider
+	private NavMeshAgent nav; // Used to navigate the spider                                                           
+	private float patrolTimer;                               
+	private int index = 0; // Index of the array to patrol
+	private bool isAttacking; 
+
 	private float minRange;
-
-	private NavMeshAgent nav;                                                             
-	private float patrolTimer;                              
-	private int wayPointIndex;    
-
-
+	private float attackInterval; // How long in between each attack interval
+	private float patrolSpeed = 1f; // How fast the spider will move while patrolling        
+	private float engageSpeed = 3f; // How fast the spider will engage
+	private float patrolWaitTime = 1f; // How long each spider will wait at the patrol point before moving on
+	private float rotationSpeed = 1f; // How fast it takes to rotate to face the player
 
 	void Awake ()
 	{
 		nav = GetComponent<NavMeshAgent> ();
 		player = GameObject.Find ("Player");
 		spiderCollider = GetComponent<SphereCollider> ();
-		minRange = spiderCollider.radius - 1;
+		minRange = spiderCollider.radius - 2;
 		patrolWayPoints = (Transform[])GameObject.Find("wayPoints").GetComponents<Transform>();
 	}
-
-
+		
 	void Update ()
 	{
 		if (InSight ())
@@ -38,10 +39,11 @@ public class EnemyAI : MonoBehaviour
 	bool InSight () {
 		RaycastHit hit;
 		var rayDirection = player.transform.position - transform.position;
-
+		Debug.Log ("SPIDER COLLIDER RADIUS" + spiderCollider.radius);
 		if (Physics.Raycast(transform.position + transform.up, rayDirection.normalized, out hit, spiderCollider.radius * 2f)) {
 			if (hit.collider.gameObject == player) {
-				GetComponentInChildren<Animator> ().SetBool ("PlayerInSight", true);
+				GetComponentInChildren<Animator> ().SetBool ("PlayerInSight", true); // Animate
+				Debug.Log("player in sight true");
 				return true;
 			} else {
 				GetComponentInChildren<Animator> ().SetBool ("PlayerInSight", false);
@@ -56,47 +58,67 @@ public class EnemyAI : MonoBehaviour
 		// Moving towards player
 		if (distance > minRange) {
 			nav.destination = player.transform.position;
+			nav.speed = engageSpeed;
+
+			// Rotate towards the player
+			transform.rotation = Quaternion.Slerp (transform.rotation,
+				Quaternion.LookRotation (player.transform.position - transform.position), rotationSpeed * Time.deltaTime);
+
+			// Reset attack interval time
+			attackInterval = 0;
+			
 			GetComponentInChildren<Animator> ().SetBool ("NextToPlayer", false);
 		} 
 		// Next to player
-		else {
+		else if (distance < 3f) {
+			// Rotate towards the player
+			transform.rotation = Quaternion.Slerp (transform.rotation,
+				Quaternion.LookRotation (player.transform.position - transform.position), rotationSpeed * Time.deltaTime);
 			Attacking ();
 		}
 	}
 
+	private bool isDamaging = false;
 	void Attacking () {
-		GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
-		Health health = player.GetComponent<Health>();
-		health.decreaseHealth(1);
+		// Can attack
+		if (!isDamaging) {
+			isDamaging = true;
+
+			GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
+
+			Health health = player.GetComponent<Health>();
+			health.decreaseHealth(50);
+
+			StartCoroutine ("DamageCooldown", 1.5f);
+		}
+		/*
+		if (attackInterval > 2f) {
+			GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
+
+			//yield return new WaitForSeconds(0.5f);
+			Health health = player.GetComponent<Health>();
+			health.decreaseHealth(50);
+			attackInterval = 0;
+		}
+		else
+			attackInterval += Time.deltaTime;*/
 	}
 
-	void OnParticleCollision(GameObject hitThing) {
-		if(hitThing.tag == "Player")	{
-			hitThing.GetComponent<Health>().decreaseHealth(1);
-			Destroy(gameObject);
-		}
+	IEnumerator DamageCooldown(float time) {
+		yield return new WaitForSeconds (time);
+		isDamaging = false;
 	}
 
 	void Patrolling ()
 	{
 		nav.speed = patrolSpeed;
-			
 		if(nav.remainingDistance < nav.stoppingDistance)
 		{
+			index = (index + 1) % patrolWayPoints.Length;
 			patrolTimer += Time.deltaTime;
-			if(patrolTimer >= patrolWaitTime)
-			{
-				if(wayPointIndex == patrolWayPoints.Length - 1)
-					wayPointIndex = 0;
-				else
-					wayPointIndex++;
-
-				patrolTimer = 0;
-			}
 		}
-		else
-			patrolTimer = 0;
 
-		nav.destination = patrolWayPoints[wayPointIndex].position;
+		Debug.Log ("Patrolling");
+		nav.destination = patrolWayPoints[index].position;
 	}
 }
