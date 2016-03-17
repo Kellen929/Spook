@@ -10,7 +10,7 @@ public class DoorOpenClose : MonoBehaviour {
 	// Private variables
 	private bool doorOpen = false, opening = false;
 	private int count = 0;
-	private int dist = 4;
+	private int dist = 8;
 
 	// Use this for initialization
 	void Start () {
