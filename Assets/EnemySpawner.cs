@@ -12,6 +12,10 @@ public class EnemySpawner : MonoBehaviour {
 	private Text scoreCount;
 	private Text waveCount;
 
+	public GameObject tablet;
+	public Text story;
+
+
 	// Use this for initialization
 	void Start () {
 		Transform scoreUI = GameObject.Find ("HUDCanvas").transform.GetChild (3);
@@ -24,7 +28,7 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		txt ();
 	}
 
 	void Spawn () {
@@ -43,6 +47,7 @@ public class EnemySpawner : MonoBehaviour {
 		if (spawnedSoFar % 4 == 0) {
 			waveNumber++;
 			waveCount.text = waveNumber.ToString ();
+			tablet.GetComponent<MapScript> ().setPrompt (true);
 		}
 
 	}
@@ -58,5 +63,27 @@ public class EnemySpawner : MonoBehaviour {
 		}
 
 		Debug.Log (numEnemies);
+	}
+
+	public void txt(){
+
+		//tablet.inProgress = true;
+		//tablet.showingPro = true;
+		switch (waveNumber) {
+
+		case 1:
+			story.text = "hellloooo";
+			break;
+		case 2:
+			story.text = "twooo";
+			break;
+		case 3:
+			story.text = "treeee";
+			break;
+
+		default:
+			story.text = "deeff";
+			break;
+		}
 	}
 }
