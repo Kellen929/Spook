@@ -60,8 +60,6 @@ public class EnemySpawner : MonoBehaviour {
 			// All waves are done
 			Debug.Log ("Waves are spawned");
 			if (waveNumber == 5) { // Spawn the boss
-				updateText();
-				tablet.GetComponent<MapScript>().setPrompt(true);
 				GameObject spider = Instantiate (enemy, points [index].position, points [index].rotation) as GameObject;
 				spider.AddComponent<MeshRenderer>();
 				MeshRenderer renderer = spider.GetComponent<MeshRenderer> ();
@@ -73,6 +71,7 @@ public class EnemySpawner : MonoBehaviour {
 				BulletInteraction bulletInteraction = spider.GetComponent<BulletInteraction> ();
 				bulletInteraction.health = 50;
 				bossSpawned = true;
+				numEnemies++;
 			}
 		}
 		if (waveNumber <= 4) {
@@ -94,7 +93,7 @@ public class EnemySpawner : MonoBehaviour {
 		score++;
 		scoreCount.text = score.ToString();
 
-		if(numEnemies <= 0 && waveNumber == 5) {
+		if(numEnemies <= 0 && waveNumber >= 5) {
 			GameObject.Find("EndGame").GetComponent<EndGame>().WinGame();
 		}
 	}
