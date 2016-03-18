@@ -49,8 +49,8 @@ public class Shooting : MonoBehaviour {
 	void Start () {
 		STATIC_BODY_POS = bodyTrans.localPosition;
 		EXTENDED_BODY_POS = new Vector3(bodyTrans.localPosition.x + 0.5f,
-										bodyTrans.localPosition.y - 0.2f,
-										bodyTrans.localPosition.z + 0.5f);
+			bodyTrans.localPosition.y - 0.2f,
+			bodyTrans.localPosition.z + 0.5f);
 		ammoCountText = GameObject.Find ("HUDCanvas").transform.GetChild (2).transform.Find ("AmmoCount").GetComponent<Text> ();
 		// Build the ammo string
 		StringBuilder builder = new StringBuilder();
@@ -59,7 +59,7 @@ public class Shooting : MonoBehaviour {
 		}
 		ammoCountText.text = builder.ToString ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if(!isPaused) {
@@ -97,7 +97,7 @@ public class Shooting : MonoBehaviour {
 					Vector3 tmp = slideTrans.localPosition;
 					tmp.y -= SLIDE_SPEED;
 					slideTrans.localPosition = tmp;
-					
+
 					// If just got fully extended, go back
 					if(slideTrans.localPosition.y <= EXTENDED_SLIDE_Y) {
 						slideReturn = true;
@@ -165,7 +165,11 @@ public class Shooting : MonoBehaviour {
 	}
 
 	public void updateAmmo(int byThisMany) {
-		ammoCount += byThisMany;
+		if (ammoCount + byThisMany > 40) { // Increase ammo by at most 40
+			ammoCount = 40;
+		}  
+		else 
+			ammoCount += byThisMany;
 		StringBuilder stringBuilder = new StringBuilder ();
 		// Rebuild the ammo count text
 		for (int i = 0; i < ammoCount; i++) {
@@ -178,3 +182,4 @@ public class Shooting : MonoBehaviour {
 		return ammoCount;
 	}
 }
+
