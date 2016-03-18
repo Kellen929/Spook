@@ -7,6 +7,7 @@ public class MapScript : MonoBehaviour {
 	public bool inProgress = false;
 	public bool showingMap = false;
 	public bool showingPro = false;
+	public bool isPaused = false;
 	public Transform mapTrans;
 	public AudioSource sfx;
 	public AudioClip mapUpSFX;
@@ -91,7 +92,7 @@ public class MapScript : MonoBehaviour {
 
 		//prompt
 		if (Input.GetKeyDown(KeyCode.P) && !inProgress && !showingMap) {
-
+			unPauseGame();
 			showingPro = !showingPro;
 			MOVE_SPEED = 0.04f;
 			inProgress = true;
@@ -99,7 +100,7 @@ public class MapScript : MonoBehaviour {
 
 		//open prompt
 		if (showingPro && inProgress &&!showingMap) {
-
+			pauseGame();
 			MOVE_SPEED -= 0.001f;
 			gameObject.GetComponent<Renderer> ().enabled = true;
 			tabLight.enabled = true;
@@ -162,5 +163,15 @@ public class MapScript : MonoBehaviour {
 		pLight.enabled = false;
 		showingMap = false;
 		MOVE_SPEED = 0.04f;
+	}
+
+	private void pauseGame() {
+		isPaused = true;
+		Time.timeScale = 0;
+	}
+
+	private void unPauseGame() {
+		isPaused = false;
+		Time.timeScale = 1;
 	}
 }

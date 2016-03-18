@@ -8,6 +8,7 @@ public class EscapeMenu : MonoBehaviour {
 	public GameObject playerGameObj;
 	public Button resumeGameButton;
 	public Button quitButton;
+	public MapScript mapScript;
 
 	// Sound toggles
 	public bool sfxOn = true;
@@ -17,7 +18,7 @@ public class EscapeMenu : MonoBehaviour {
 	private bool isPaused = false;
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame
@@ -30,14 +31,18 @@ public class EscapeMenu : MonoBehaviour {
 
 		if (isPaused) {
 			resumeCanvas.gameObject.SetActive(true);
-			Time.timeScale = 0;
 			Cursor.visible = true;
 			Screen.lockCursor = false;
-		} else if (!isPaused) {
+
+			Time.timeScale = 0;
+		}
+		else if (!isPaused) {
 			resumeCanvas.gameObject.SetActive(false);
 			Cursor.visible = false;
 			Screen.lockCursor = true;
-			Time.timeScale = 1;
+			
+			if(!mapScript.isPaused)
+				Time.timeScale = 1;
 		}
 	}
 
