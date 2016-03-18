@@ -80,10 +80,10 @@ public class EnemySpawner : MonoBehaviour {
 		}
 		// Once 4 enemies are spawned, it's a new wave
 		if (spawnedSoFar % 4 == 0 && waveNumber <= 4) {
-			updateText();
-			tablet.GetComponent<MapScript>().setPrompt(true);
 			if (waveNumber <= 4) {
 				waveNumber++;
+				updateText();
+				tablet.GetComponent<MapScript>().setPrompt(true);
 			}
 		}
 
