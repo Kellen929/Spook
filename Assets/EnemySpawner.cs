@@ -5,10 +5,11 @@ using UnityEngine.UI;
 public class EnemySpawner : MonoBehaviour {
 	public Transform[] points;
 	public GameObject enemy; 
-	public int waveNumber = 3;
+	public int waveNumber = 1;
 	public int numEnemies = 0; // Current existing enemies
 	public int spawnedSoFar = 0; // How many we've spawned thus far
 	public int score = 0;
+	private bool isOriginal = true;
 	private Text scoreCount;
 	private Text waveCount;
 
@@ -32,10 +33,24 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	void Spawn () {
-		int index = Random.Range (0, points.Length); // Randomly spawn at one of two locations
+		int index = isOriginal ? 0 : 1;
+			
 		// Only spawn 3 waves
-		if (waveNumber < 3) {
-			Instantiate (enemy, points [index].position, points [index].rotation);
+		if (waveNumber <= 4) {
+			GameObject spider = Instantiate (enemy, points [index].position, points [index].rotation) as GameObject;
+
+			EnemyAI enemyAI = spider.GetComponent<EnemyAI> ();
+			Debug.Log (enemyAI);
+
+			if (isOriginal) { // Assign this the original way points
+				isOriginal = false;
+				enemyAI.patrolWayPoints = GameObject.Find("wayPoints").GetComponentsInChildren<Transform>();
+				
+			} else { // Assign this the new way points
+				isOriginal = true;
+				enemyAI.patrolWayPoints = GameObject.Find("wayPoints2").GetComponentsInChildren<Transform>();
+			}
+
 			numEnemies++;
 			spawnedSoFar++;
 		} else {
