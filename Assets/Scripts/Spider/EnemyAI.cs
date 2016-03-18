@@ -89,17 +89,6 @@ public class EnemyAI : MonoBehaviour
 
 			StartCoroutine ("DamageCooldown", 1.5f);
 		}
-		/*
-		if (attackInterval > 2f) {
-			GetComponentInChildren<Animator>().SetBool("NextToPlayer", true);
-
-			//yield return new WaitForSeconds(0.5f);
-			Health health = player.GetComponent<Health>();
-			health.decreaseHealth(50);
-			attackInterval = 0;
-		}
-		else
-			attackInterval += Time.deltaTime;*/
 	}
 
 	IEnumerator DamageCooldown(float time) {

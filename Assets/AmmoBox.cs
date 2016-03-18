@@ -20,6 +20,6 @@ public class AmmoBox : MonoBehaviour {
 		if(GameObject.Find("EscapeMenu").GetComponent<EscapeMenu>().sfxOn)
 			GameObject.Find("AmmoSpawner").GetComponent<AudioSource>().Play();
 		GameObject.Find("Player").GetComponent<Shooting>().updateAmmo(AMMO_IN_BOX);
-		GameObject.Find("AmmoSpawner").GetComponent<AmmoSpawner>().pickupAmmoBox();
+		Destroy(gameObject);
 	}
 }

@@ -81,10 +81,7 @@ public class EnemySpawner : MonoBehaviour {
 		scoreCount.text = score.ToString ();
 
 		if(numEnemies <= 0 && waveNumber == 3) {
-			print("END GAME");
 			GameObject.Find("EndGame").GetComponent<EndGame>().WinGame();
 		}
-
-		Debug.Log (numEnemies);
 	}
 }
