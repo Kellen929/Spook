@@ -158,5 +158,9 @@ public class MapScript : MonoBehaviour {
 	public void setPrompt(bool truth){
 		inProgress = truth;
 		showingPro = truth;
+		mapCam.enabled = false;
+		pLight.enabled = false;
+		showingMap = false;
+		MOVE_SPEED = 0.04f;
 	}
 }

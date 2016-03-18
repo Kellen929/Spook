@@ -72,17 +72,43 @@ public class EnemySpawner : MonoBehaviour {
 		switch (waveNumber) {
 
 		case 1:
-			story.text = "hellloooo";
+			story.text = "Why did the nurse leave me a gun next to my bed? Where am I? What happened to me? " +
+				"What happened here? Is my wife ok? Vanessa? Jamie? I miss my little princesses.\n(Press 'p' to close)";
 			break;
 		case 2:
-			story.text = "twooo";
-			break;
+			story.text = "Oww my legs. \nOhhh yeah... A car hit me. Last I saw of my darling Audrey was next to my stretcher. " +
+				"But where is she now? Where is everyone? How long have I been here? I need to find my daughters. And whats with all these hostile spiders? \n(Press 'p' to close)";
+			break; 
 		case 3:
-			story.text = "treeee";
+			story.text = "I remember hearing a nurse playing with them. Hopefully she's taking care of them. " +
+				"I hope none of them are hurt. I need to find them now!\n(Press 'p' to close)";
+			break;
+		case 4:
+			story.color = Color.white;
+			story.fontSize = 16;
+			story.text = "From: St. Capoli Emergency Notification\nTo:undisclosed-recipients" +
+				"\n\nPossible virus outbreak seen at approx. 0.19:42 hours near 14th floor at rm. 1408." +
+				"\nLast seen spreading to the 8th floor and 16th floor." +
+				"\nRefer to HPD website for precautions to take.(Press 'p' to close)";
+			break;
+		case 5:
+			story.color = Color.green;
+			story.fontSize = 20;
+			story.text = "Arg. I can barely bend my leg. That driver looked a bit strange before he hit me.\n(Press 'p' to close)";
+			break;
+		case 6:
+			story.text = "This place feels like a maze, I feel like im walking in circles. " +
+				"How am i going to find my family. I pray that they are ok.\n(Press 'p' to close)";
+			break;
+		case 7:
+			story.text = "Maybe there is a secret exit somewhere.\n(Press 'p' to close)";
+			break;
+		case 9:
+			story.text = "This is impossible, my legs are about to give out. I can't stand this pain anymore!\n(Press 'p' to close)";
 			break;
 
 		default:
-			story.text = "deeff";
+			story.text = "Story time...\n(Press 'p' to close)";
 			break;
 		}
 	}
